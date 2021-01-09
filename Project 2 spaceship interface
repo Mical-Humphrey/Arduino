@@ -1,0 +1,55 @@
+/*
+
+Mical Humphrey
+9 January 2021
+Personal variations on Project 2 sketch code
+
+*/
+
+
+//Declaring a global variable
+int switchState = 0;
+
+
+//Setup sketch
+//Define the pins as inputs and outputs
+void setup() {
+  pinMode(2, INPUT); pinMode(3, OUTPUT); pinMode(4, OUTPUT); pinMode(5, OUTPUT);
+}
+
+//loop function 
+void loop() {
+  switchState = digitalRead(2);
+
+  //if the button is not being pressed. Low corresponds with no voltage running between 5v and GND pins on Uno.
+  if (switchState == LOW) {
+    
+    digitalWrite (3, LOW); // green LED
+    digitalWrite (4, LOW); // red LED
+    digitalWrite (5, LOW); // red LED
+    
+    //Infinite for loop so we can have a cool arpegio effect with LED lights. delay(250) is a 250 ms (or 1/4 of a second) delay.
+    for (;;)
+    {
+    digitalWrite(3, HIGH); digitalWrite(4, LOW); digitalWrite(5, LOW); delay(250);
+    digitalWrite(3, LOW); digitalWrite(4, HIGH); digitalWrite(5, LOW); delay(250);
+    digitalWrite(3, LOW); digitalWrite(4, LOW); digitalWrite(5, HIGH); delay(250);
+    digitalWrite(3, LOW); digitalWrite(4, HIGH); digitalWrite(5, LOW); delay(250);
+    }
+  }
+
+
+  //This code executes when the button is pressed
+  else {
+    digitalWrite (3, LOW); digitalWrite (4, LOW); digitalWrite (5, LOW); delay(500); 
+    //wait for 500 ms, half a second. 1 s = 1000 ms
+    
+    //toggle the LEDs
+    digitalWrite (3, HIGH); digitalWrite (4, LOW); digitalWrite (5, LOW); delay(500); //wait
+    digitalWrite (3, LOW); digitalWrite (4, HIGH); digitalWrite (5, LOW); delay(500);
+    digitalWrite (3, LOW); digitalWrite (4, LOW); digitalWrite (5, HIGH); delay(500); 
+    digitalWrite (3, HIGH); digitalWrite (4, HIGH); digitalWrite (5, HIGH); delay(500); 
+    digitalWrite (3, LOW);digitalWrite (4, LOW); digitalWrite (5, LOW); delay(500); 
+    digitalWrite (3, HIGH); digitalWrite (4, HIGH); digitalWrite (5, HIGH); delay(500); 
+  }
+} // go back to the beginning of the loop
